@@ -249,7 +249,7 @@ namespace Tests
             //        );
             //}
 
-            #region HW2
+            //hw2
 
             char[] excCases = { '0', '1', 'x', 'i', '&' };
 
@@ -271,10 +271,40 @@ namespace Tests
                     $" argument: ('{digit}'), ex.Message: {ex.Message}"
                     );
             }
-
-            #endregion
         }
-    }
+        [TestMethod]
+        public void SumTest()
+        {
+            RomanNumber rn1 = new(1), rn2 = new(2);
+            RomanNumber res = rn1.Plus(rn2);
+            Assert.IsInstanceOfType<RomanNumber>(
+                res
+            );
+            // вимога: результат PLus не э анi rn1, анi rn2 (створюэться iнший объект)
+            Assert.AreNotSame( rn1, res );
+            Assert.AreNotSame( rn2, res);
+
+            // вимога: результат маэ бути правильного рiшення арифметичною сумою
+            // забезпечити доцiльнiсть правильного рiшення (множину тестiв)
+
+            for(var i = 0; i < 100; i++)
+            {
+                Assert.AreEqual(
+
+                    i + rn1.Value,
+                    rn1.Plus(new(i)).Value,
+                    $"1 + {i} --> {1 + i}"
+                    );
+            }
+
+            // вимога: мае бути виняток при передачi Null
+            Assert.ThrowsException<ArgumentNullException>(
+                () => rn1.Plus(null!)
+            );
+
+            //RomanNumber.Plus(RomanNumber.Plus(rn1, rn2), rn2);
+        }
+    }   
 
     record TestCase(String Source, int? Value, String? ExMessage = null)
     {

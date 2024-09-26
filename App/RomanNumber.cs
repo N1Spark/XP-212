@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace App
 {
@@ -49,5 +50,9 @@ namespace App
             }
             return result.ToString();
         }
+        public RomanNumber Plus(RomanNumber p) =>
+            p == null
+            ? throw new ArgumentNullException(nameof(p))
+            : this with { Value = Value + p.Value };
     }
 }
